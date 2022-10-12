@@ -4,18 +4,30 @@
  */
 package locadora.view;
 
+import javax.swing.JOptionPane;
+import locadora.controller.AtorController;
+
 /**
  *
  * @author vinic
  */
 public class TelaCadastroAtor extends javax.swing.JFrame {
 
+    private TelaPrincipal telaPrincipal;
+    
     /**
      * Creates new form TelaCadastroAtor
      */
     public TelaCadastroAtor() {
         initComponents();
     }
+
+    public TelaCadastroAtor(TelaPrincipal telaPrincipal){
+        this.telaPrincipal = telaPrincipal;
+        initComponents();
+                
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -66,6 +78,11 @@ public class TelaCadastroAtor extends javax.swing.JFrame {
 
         jButtonSalvar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jButtonSalvar.setText("Salvar");
+        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalvarActionPerformed(evt);
+            }
+        });
 
         jButtonLimpar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jButtonLimpar.setText("Limpar");
@@ -152,6 +169,36 @@ public class TelaCadastroAtor extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+        
+        // Pegando o valor digitado na tela e salvando numa variável
+        String nome = jTextFieldNome.getText();
+        
+        // Pegando a escolha na combo box e salvando numa variável
+        String nacionalidade = jComboBoxNacionalidade.getSelectedItem().toString();
+        
+        boolean sucesso;
+        
+        try{
+            
+            AtorController atorController = new AtorController();
+            sucesso = atorController.cadastrarAtor(nome, nacionalidade);
+            if(sucesso = true){
+                JOptionPane.showMessageDialog(null, "O cadastro foi realizado com sucesso!" );
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Os campos não foram preenchidos corretamente." );
+            }
+            
+        } catch (Exception e) {
+            
+            JOptionPane.showMessageDialog(null, "Erro: " + e );
+        }
+        
+        
+        
+    }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     /**
      * @param args the command line arguments
