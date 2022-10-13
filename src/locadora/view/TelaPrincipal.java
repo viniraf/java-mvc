@@ -104,6 +104,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItemFilme.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jMenuItemFilme.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/seta.png"))); // NOI18N
         jMenuItemFilme.setText("Filme");
+        jMenuItemFilme.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                abrir_TelaCadastroFilme(evt);
+            }
+        });
         jMenuCadastro.add(jMenuItemFilme);
 
         jMenuItem.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -144,7 +149,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         TelaCadastroAtor telaCadastroAtor = new TelaCadastroAtor(this);
         this.setVisible(false);
         telaCadastroAtor.setVisible(true);
+        
+        
     }//GEN-LAST:event_abrir_telaCadastroAtor
+
+    private void abrir_TelaCadastroFilme(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrir_TelaCadastroFilme
+       TelaCadastroAtor telaCadastroAtor = new TelaCadastroAtor(this);
+       this.setVisible(false);
+       telaCadastroAtor.setVisible(true);
+    }//GEN-LAST:event_abrir_TelaCadastroFilme
 
     /**
      * @param args the command line arguments

@@ -4,17 +4,28 @@
  */
 package locadora.view;
 
+import javax.swing.JOptionPane;
+import locadora.controller.FilmeController;
+
 /**
  *
  * @author vinic
  */
 public class TelaCadastroFilme extends javax.swing.JFrame {
 
+     private TelaPrincipal telaPrincipal;
+    
     /**
-     * Creates new form TelaCadastroFilme
+     * Creates new form TelaCadastroAtor
      */
     public TelaCadastroFilme() {
         initComponents();
+    }
+
+    public TelaCadastroFilme(TelaPrincipal telaPrincipal){
+        this.telaPrincipal = telaPrincipal;
+        initComponents();
+                
     }
 
     /**
@@ -89,6 +100,11 @@ public class TelaCadastroFilme extends javax.swing.JFrame {
 
         jButtonSalvar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jButtonSalvar.setText("Salvar");
+        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalvarActionPerformed(evt);
+            }
+        });
 
         jButtonLimpar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jButtonLimpar.setText("Limpar");
@@ -190,6 +206,27 @@ public class TelaCadastroFilme extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+        int duracao = Integer.parseInt(jSpinnerDuracao.getValue().toString());
+        String genero = jComboBoxGenero.getSelectedItem().toString();
+        boolean sucesso;
+        
+        try {
+            FilmeController filmeController = new FilmeController();
+            filmeController.cadastrarFilme(jTextFieldTitulo.getText(), genero, jTextAreaSinopse.getText(), duracao);
+            if (sucesso = true){
+                JOptionPane.showMessageDialog(null, "O cadastro foi realizado com sucesso");
+            } else {
+                JOptionPane.showMessageDialog(null, "Os campos não foram preenchidos corretamente");
+            }
+            
+            
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Erro: " + e);
+        }
+        
+    }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     /**
      * @param args the command line arguments
