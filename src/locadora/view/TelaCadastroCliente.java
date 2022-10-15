@@ -99,6 +99,11 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
 
         jButtonSalvar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jButtonSalvar.setText("Salvar");
+        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalvarActionPerformed(evt);
+            }
+        });
 
         jButtonLimpar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jButtonLimpar.setText("Limpar");
@@ -133,9 +138,8 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
                         .addComponent(jButtonCancelar)
                         .addGap(37, 37, 37)
                         .addComponent(jButtonConsultar))
-                    .addGroup(jPanelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jFormattedTextFieldDtNascimento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
-                        .addComponent(jFormattedTextFieldCPF, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(jFormattedTextFieldDtNascimento)
+                    .addComponent(jFormattedTextFieldCPF)
                     .addComponent(jTextFieldNome))
                 .addGap(99, 99, 99))
         );
@@ -198,6 +202,10 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     /**
      * @param args the command line arguments

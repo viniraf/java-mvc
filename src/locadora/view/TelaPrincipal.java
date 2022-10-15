@@ -154,9 +154,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_abrir_telaCadastroAtor
 
     private void abrir_TelaCadastroFilme(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrir_TelaCadastroFilme
-       TelaCadastroAtor telaCadastroAtor = new TelaCadastroAtor(this);
+       TelaCadastroFilme telaCadastroFilme = new TelaCadastroFilme(this);
        this.setVisible(false);
-       telaCadastroAtor.setVisible(true);
+       telaCadastroFilme.setVisible(true);
     }//GEN-LAST:event_abrir_TelaCadastroFilme
 
     /**
