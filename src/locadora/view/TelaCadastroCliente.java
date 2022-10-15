@@ -4,17 +4,28 @@
  */
 package locadora.view;
 
+import javax.swing.JOptionPane;
+import locadora.controller.ClienteController;
+
 /**
  *
  * @author vinic
  */
 public class TelaCadastroCliente extends javax.swing.JFrame {
 
+     private TelaPrincipal telaPrincipal;
+    
     /**
      * Creates new form TelaCadastroCliente
      */
     public TelaCadastroCliente() {
         initComponents();
+    }
+
+    public TelaCadastroCliente(TelaPrincipal telaPrincipal){
+        this.telaPrincipal = telaPrincipal;
+        initComponents();
+                
     }
 
     /**
@@ -204,7 +215,34 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        // TODO add your handling code here:
+      
+       boolean sucesso;
+
+       try {
+           
+           ClienteController clienteController = new ClienteController();
+           sucesso = clienteController.cadastrarCliente(jTextFieldNome.getText(), 
+                   jFormattedTextFieldCPF.getText(), 
+                   jTextFieldEmail.getText(), 
+                   jTextFieldEndereco.getText(), 
+                   jFormattedTextFieldDtNascimento.getText());
+           
+           if(sucesso){
+               JOptionPane.showMessageDialog(null, "O cadastro foi realizado com sucesso!");
+           }
+           else {
+               JOptionPane.showMessageDialog(null, "Os campos não foram preenchidos corretamente");
+           }
+           
+           
+           
+       } catch (Exception e){
+           
+           JOptionPane.showMessageDialog(null, "Erro: " + e);
+           
+       }
+       
+       
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     /**
