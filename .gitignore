@@ -26,7 +26,6 @@ hs_err_pid*
 **/nbproject/private/
 **/nbproject/Makefile-*.mk
 **/nbproject/Package-*.bash
-nbproject/
 build/
 nbbuild/
 dist/
@@ -49,8 +48,4 @@ nbdist/
 # Maven
 log/
 target/
-
-
-*.xml
-*.mf
 
