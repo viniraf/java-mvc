@@ -5,6 +5,8 @@
 package locadora.model;
 
 import java.util.ArrayList;
+import locadora.dao.ExceptionDAO;
+import locadora.dao.FilmeDAO;
 
 /**
  *
@@ -94,8 +96,8 @@ public class Filme {
         this.atores = atores;
     }
     
-    public void cadastrarFilme(Filme filme){
-        
+    public void cadastrarFilme(Filme filme) throws ExceptionDAO {
+        new FilmeDAO().cadastrarFilme(filme);
     }
     
     
