@@ -5,6 +5,8 @@
 package locadora.model;
 
 import java.util.ArrayList;
+import locadora.dao.AtorDAO;
+import locadora.dao.ExceptionDAO;
 
 /**
  *
@@ -66,7 +68,7 @@ public class Ator {
     }
     
     // Método para cadastrar o ator - vai salvar o ator no banco de dados
-    public void cadastrarAtor(Ator ator) {
-        
+    public void cadastrarAtor(Ator ator) throws ExceptionDAO {
+        new AtorDAO().cadastrarAtor(ator);
     }
 }
