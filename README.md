@@ -7,7 +7,7 @@
 ## Tecnologias utilizadas
 
 * NetBeans e MySQL Workbench;
-* Linguagens: Java, Java Swing e MySQL, 
+* Linguagens: Java, Java e MySQL, 
 * Outros: Git e Github.
 
 ## Conhecimentos utilizados 
