@@ -4,6 +4,8 @@
  */
 package locadora.view;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author vinic
@@ -44,6 +46,12 @@ public class TelaConsultaFilme extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Video Locadora Hora da Pipoca");
+        setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                fecharJanelaConsulta(evt);
+            }
+        });
 
         jPanelConsultarFilme.setBackground(new java.awt.Color(102, 102, 102));
 
@@ -55,6 +63,11 @@ public class TelaConsultaFilme extends javax.swing.JFrame {
         jTextFieldTituloFilme.setToolTipText("Informe o título do filme");
 
         jButtonConsultarFilme.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/lupa.png"))); // NOI18N
+        jButtonConsultarFilme.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consultar_filme(evt);
+            }
+        });
 
         jTableConsultaFilme.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         jTableConsultaFilme.setModel(new javax.swing.table.DefaultTableModel(
@@ -140,7 +153,17 @@ public class TelaConsultaFilme extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void consultar_filme(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultar_filme
+        JOptionPane.showMessageDialog(null, "Consulta de titulos de filme.");
+    }//GEN-LAST:event_consultar_filme
+
+    private void fecharJanelaConsulta(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_fecharJanelaConsulta
+       this.dispose();
+       this.telaCadastroFilme.setVisible(true);
+    }//GEN-LAST:event_fecharJanelaConsulta
 
     /**
      * @param args the command line arguments
