@@ -4,16 +4,25 @@
  */
 package locadora.view;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author vinic
  */
 public class TelaConsultaAtor extends javax.swing.JFrame {
 
+    private TelaCadastroAtor telaCadastroAtor;
+            
     /**
      * Creates new form TelaConsultaAtor
      */
     public TelaConsultaAtor() {
+        initComponents();
+    }
+    
+    public TelaConsultaAtor(TelaCadastroAtor telaCadastroAtor){
+        this.telaCadastroAtor = telaCadastroAtor;
         initComponents();
     }
 
@@ -36,6 +45,12 @@ public class TelaConsultaAtor extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Video Locadora Hora da Pipoca");
+        setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                fecharJanelaConsulta(evt);
+            }
+        });
 
         jPanelConsultaAtor.setBackground(new java.awt.Color(102, 102, 102));
 
@@ -47,6 +62,11 @@ public class TelaConsultaAtor extends javax.swing.JFrame {
         jTextFieldNomeAtor.setToolTipText("Informe o nome do ator que deseja consultar");
 
         jButtonConsultaAtor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/lupa.png"))); // NOI18N
+        jButtonConsultaAtor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consultar_ator(evt);
+            }
+        });
 
         jTableConsultaAtor.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         jTableConsultaAtor.setModel(new javax.swing.table.DefaultTableModel(
@@ -135,7 +155,17 @@ public class TelaConsultaAtor extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void consultar_ator(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultar_ator
+        JOptionPane.showMessageDialog(null, "Consulta o nome do ator.");
+    }//GEN-LAST:event_consultar_ator
+
+    private void fecharJanelaConsulta(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_fecharJanelaConsulta
+        this.dispose();
+        this.telaCadastroAtor.setVisible(true);
+    }//GEN-LAST:event_fecharJanelaConsulta
 
     /**
      * @param args the command line arguments
