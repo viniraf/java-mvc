@@ -124,6 +124,11 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
 
         jButtonConsultar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jButtonConsultar.setText("Consultar");
+        jButtonConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                abrir_telaConsultaCliente(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelCadastroClienteLayout = new javax.swing.GroupLayout(jPanelCadastroCliente);
         jPanelCadastroCliente.setLayout(jPanelCadastroClienteLayout);
@@ -244,6 +249,12 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
        
        
     }//GEN-LAST:event_jButtonSalvarActionPerformed
+
+    private void abrir_telaConsultaCliente(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrir_telaConsultaCliente
+        TelaConsultaCliente telaConsultaCliente = new TelaConsultaCliente(this);
+        this.setVisible(false);
+        telaConsultaCliente.setVisible(true);
+    }//GEN-LAST:event_abrir_telaConsultaCliente
 
     /**
      * @param args the command line arguments
