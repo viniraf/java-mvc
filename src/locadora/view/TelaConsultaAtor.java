@@ -4,7 +4,12 @@
  */
 package locadora.view;
 
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import locadora.controller.AtorController;
+import locadora.dao.ExceptionDAO;
+import locadora.model.Ator;
 
 /**
  *
@@ -159,7 +164,27 @@ public class TelaConsultaAtor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void consultar_ator(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultar_ator
-        JOptionPane.showMessageDialog(null, "Consulta o nome do ator.");
+        String nome = jTextFieldNomeAtor.getText();
+        DefaultTableModel tableModel = (DefaultTableModel) jTableConsultaAtor.getModel();
+        tableModel.setRowCount(0);
+        AtorController atorController = new AtorController();
+        
+        try {
+            ArrayList<Ator> atores =  atorController.listarAtores(nome);
+            atores.forEach((Ator ator) -> {
+                tableModel.addRow(new Object[] {ator.getCodAtor(),
+                                                ator.getNome(),
+                                                ator.getNacionalidade()});                                       
+            });
+            
+            jTableConsultaAtor.setModel(tableModel);
+                  
+        } catch (ExceptionDAO erro){
+          JOptionPane.showMessageDialog(null, "Erro: " + erro);
+        }
+        
+        
+        
     }//GEN-LAST:event_consultar_ator
 
     private void fecharJanelaConsulta(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_fecharJanelaConsulta

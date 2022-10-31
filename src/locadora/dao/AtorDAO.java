@@ -6,7 +6,10 @@ package locadora.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import locadora.model.Ator;
+import java.sql.ResultSet;
+import java.util.Set;
 
 /**
  *
@@ -47,10 +50,52 @@ public class AtorDAO {
                 throw new ExceptionDAO("Erro ao fechar a conexao: " + erro);
             }
         }
-        
-        
-       
-        
     }
     
+    public ArrayList<Ator> listarAtores(String nome) throws ExceptionDAO {
+        
+        String sql = "SELECT * FROM ator WHERE nome LIKE '%" + nome + "%' ORDER BY nome";
+        Connection connection = null;
+        PreparedStatement pStatement = null;
+        ArrayList<Ator> atores = null;
+        
+        try{
+            connection = new ConnectionMVC().getConnection();
+            pStatement = connection.prepareStatement(sql);
+            ResultSet rs = pStatement.executeQuery(sql);
+            
+            if (rs!=null){
+                atores = new ArrayList<Ator>();
+                while(rs.next()){
+                    Ator ator = new Ator();
+                    ator.setCodAtor(rs.getInt("codAtor"));
+                    ator.setNome(rs.getString("nome"));
+                    ator.setNacionalidade(rs.getString("nacionalidade"));
+                    atores.add(ator);
+                }
+            }
+            
+        } catch(SQLException erro){
+            throw new ExceptionDAO ("Erro ao consultar atores: " + erro);
+            
+        } finally {
+            
+            try {
+                if(pStatement!=null) {pStatement.close();}
+                
+            } catch (SQLException erro) {
+                throw new ExceptionDAO("Erro ao fechar o pStatement: " + erro);
+            }
+            
+            try {
+                if(connection != null) {connection.close();}
+                
+            } catch (SQLException erro) {
+                throw new ExceptionDAO("Erro ao fechar a conexão: " + erro);
+            }
+        } 
+        
+        
+        return atores;
+    }
 }

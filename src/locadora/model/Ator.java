@@ -71,4 +71,8 @@ public class Ator {
     public void cadastrarAtor(Ator ator) throws ExceptionDAO {
         new AtorDAO().cadastrarAtor(ator);
     }
+    
+    public ArrayList<Ator> listarAtores(String nome) throws ExceptionDAO {
+        return new AtorDAO().listarAtores(nome);
+    }
 }
