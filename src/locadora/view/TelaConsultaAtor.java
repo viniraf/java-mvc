@@ -100,6 +100,11 @@ public class TelaConsultaAtor extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableConsultaAtor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableConsultaAtorMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableConsultaAtor);
 
         javax.swing.GroupLayout jPanelConsultaAtorLayout = new javax.swing.GroupLayout(jPanelConsultaAtor);
@@ -191,6 +196,18 @@ public class TelaConsultaAtor extends javax.swing.JFrame {
         this.dispose();
         this.telaCadastroAtor.setVisible(true);
     }//GEN-LAST:event_fecharJanelaConsulta
+
+    private void jTableConsultaAtorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableConsultaAtorMouseClicked
+       if(evt.getClickCount() == 2) {
+           Integer codAtor = (Integer) jTableConsultaAtor.getModel().getValueAt(jTableConsultaAtor.getSelectedRow(), 0);
+           String nome = (String) jTableConsultaAtor.getModel().getValueAt(jTableConsultaAtor.getSelectedRow(), 1);
+           String nacionalidade = (String) jTableConsultaAtor.getModel().getValueAt(jTableConsultaAtor.getSelectedRow(), 2);
+           
+           this.telaCadastroAtor.buscarAtor(codAtor, nome, nacionalidade);
+           this.telaCadastroAtor.setVisible(true);
+           this.dispose();
+       }
+    }//GEN-LAST:event_jTableConsultaAtorMouseClicked
 
     /**
      * @param args the command line arguments

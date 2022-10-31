@@ -14,6 +14,7 @@ import locadora.controller.AtorController;
 public class TelaCadastroAtor extends javax.swing.JFrame {
 
     private TelaPrincipal telaPrincipal;
+    private Integer codAtor = 0;
     
     /**
      * Creates new form TelaCadastroAtor
@@ -26,6 +27,16 @@ public class TelaCadastroAtor extends javax.swing.JFrame {
         this.telaPrincipal = telaPrincipal;
         initComponents();
                 
+    }
+    
+    public void buscarAtor(Integer codAtor, String nome, String nacionalidade){
+        this.codAtor = codAtor;
+        this.jTextFieldNome.setText(nome);
+        for(int contador = 0; contador<jComboBoxNacionalidade.getItemCount(); contador++){
+            if(jComboBoxNacionalidade.getItemAt(contador).equals(nacionalidade)){
+                jComboBoxNacionalidade.setSelectedIndex(contador);
+            }
+        }
     }
     
 
