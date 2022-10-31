@@ -39,4 +39,15 @@ public class FilmeController {
         
         return false;
     }
+      
+      public boolean apagarFilme(int codFilme) throws ExceptionDAO {
+          if (codFilme == 0){
+              return false;
+          } else {
+              Filme filme = new Filme();
+              filme.setCodFilme(codFilme);
+              filme.apagarFilme(filme);
+              return true;
+          }
+      }
 }

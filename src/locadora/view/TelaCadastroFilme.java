@@ -66,6 +66,7 @@ public class TelaCadastroFilme extends javax.swing.JFrame {
         jButtonCancelar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabelTextoMinutosDuracao = new javax.swing.JLabel();
+        jButtonApagar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -136,6 +137,14 @@ public class TelaCadastroFilme extends javax.swing.JFrame {
         jLabelTextoMinutosDuracao.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         jLabelTextoMinutosDuracao.setText("minutos");
 
+        jButtonApagar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jButtonApagar.setText("Apagar");
+        jButtonApagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonApagarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelCadastroFilmeLayout = new javax.swing.GroupLayout(jPanelCadastroFilme);
         jPanelCadastroFilme.setLayout(jPanelCadastroFilmeLayout);
         jPanelCadastroFilmeLayout.setHorizontalGroup(
@@ -156,7 +165,9 @@ public class TelaCadastroFilme extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButtonCancelar)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1))
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonApagar))
                     .addComponent(jTextFieldTitulo)
                     .addComponent(jComboBoxGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanelCadastroFilmeLayout.createSequentialGroup()
@@ -195,7 +206,8 @@ public class TelaCadastroFilme extends javax.swing.JFrame {
                     .addComponent(jButtonSalvar)
                     .addComponent(jButtonLimpar)
                     .addComponent(jButtonCancelar)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(jButtonApagar))
                 .addContainerGap(92, Short.MAX_VALUE))
         );
 
@@ -259,6 +271,23 @@ public class TelaCadastroFilme extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButtonApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonApagarActionPerformed
+        boolean sucesso;
+        FilmeController filmeController = new FilmeController();
+        
+        try {
+            sucesso = filmeController.apagarFilme(this.codFilme);
+            if (sucesso){
+                JOptionPane.showMessageDialog(null, "Filme apagado com sucesso");
+                //this.limparTelaCadastroFilme(evt); - falta implementar o metodo limparTela
+            } else {
+                 JOptionPane.showMessageDialog(null, "Erro ao apagar filme, por favor, selecione um filme!");
+            }
+        } catch(Exception erro){
+            JOptionPane.showMessageDialog(null, "Erro: " + erro);
+        }
+    }//GEN-LAST:event_jButtonApagarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -296,6 +325,7 @@ public class TelaCadastroFilme extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonApagar;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonLimpar;
     private javax.swing.JButton jButtonSalvar;

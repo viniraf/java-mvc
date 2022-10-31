@@ -137,4 +137,37 @@ public class FilmeDAO {
         }
     }
     
+     public void apagarFilme(Filme filme) throws ExceptionDAO {
+        
+        String sql = "DELETE FROM filme WHERE codFilme = ?";
+        PreparedStatement pStatement = null;
+        Connection connection = null;
+        
+        try {
+            connection = new ConnectionMVC().getConnection();
+            pStatement = connection.prepareStatement(sql);
+            pStatement.setInt(1, filme.getCodFilme());
+            pStatement.execute();
+            
+        } catch (SQLException erro) {
+            throw new ExceptionDAO("Erro ao apagar o filme: " + erro);
+            
+        } finally {
+            
+            try {
+                if (pStatement != null) {
+                    pStatement.close();
+                }
+            } catch (SQLException erro) {
+                throw new ExceptionDAO("Erro ao fechar o Statement: " + erro);
+            } try {
+                if (connection != null) {
+                    connection.close();
+                } 
+            } catch (SQLException erro) {
+                throw new ExceptionDAO("Erro ao fechar conexao: " + erro);
+            }
+        }
+    }
+    
 }

@@ -108,4 +108,8 @@ public class Filme {
         new FilmeDAO().alterarFilme(filme);
     }
     
+     public void apagarFilme(Filme filme) throws ExceptionDAO {
+        new FilmeDAO().apagarFilme(filme);
+    }
+    
 }
