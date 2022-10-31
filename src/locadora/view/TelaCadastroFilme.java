@@ -14,6 +14,7 @@ import locadora.controller.FilmeController;
 public class TelaCadastroFilme extends javax.swing.JFrame {
 
      private TelaPrincipal telaPrincipal;
+     private Integer codFilme = 0;
     
     /**
      * Creates new form TelaCadastroAtor
@@ -26,6 +27,18 @@ public class TelaCadastroFilme extends javax.swing.JFrame {
         this.telaPrincipal = telaPrincipal;
         initComponents();
                 
+    }
+    
+    public void buscarFilme (Integer codFilme, String titulo, String genero, String sinopse, Integer duracao) {
+        this.codFilme = codFilme;
+        this.jTextFieldTitulo.setText(titulo);
+        for(int contador = 0; contador < jComboBoxGenero.getItemCount(); contador++){
+            if(jComboBoxGenero.getItemAt(contador).equals(genero)) {
+                jComboBoxGenero.setSelectedIndex(contador);
+            }
+        }
+        this.jTextAreaSinopse.setText(sinopse);
+        this.jSpinnerDuracao.setValue(duracao);
     }
 
     /**
