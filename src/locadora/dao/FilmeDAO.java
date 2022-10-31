@@ -7,7 +7,9 @@ package locadora.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import locadora.model.Filme;
+import java.sql.ResultSet;
 
 /**
  *
@@ -50,4 +52,52 @@ public class FilmeDAO {
             }
         }
     }
+    
+    public ArrayList<Filme> listarFilmes(String nome) throws ExceptionDAO {
+        
+        String sql = "SELECT * FROM filme WHERE titulo LIKE '%" + nome + "%' ORDER BY titulo";
+        Connection connection = null;
+        PreparedStatement pStatement = null;
+        ArrayList<Filme> filmes = null;
+        
+        try{
+            connection = new ConnectionMVC().getConnection();
+            pStatement = connection.prepareStatement(sql);
+            ResultSet rs = pStatement.executeQuery(sql);
+            
+            if (rs!= null){
+                filmes = new ArrayList<Filme>();
+                while(rs.next()){
+                    Filme filme = new Filme();
+                    filme.setCodFilme(rs.getInt("codFilme"));
+                    filme.setTitulo(rs.getString("titulo"));
+                    filme.setGenero(rs.getString("genero"));
+                    filme.setSinopse(rs.getString("sinopse"));
+                    filme.setDuracao(rs.getInt("duracao"));
+                    filmes.add(filme);
+                }
+            }
+                    
+        } catch (SQLException erro){
+            throw new ExceptionDAO("Erro ao consultar o filme: " + erro);
+     
+        } finally {
+            
+            try {
+                if(pStatement!=null) {pStatement.close();}
+                
+            } catch (SQLException erro) {
+                throw new ExceptionDAO("Erro ao fechar o pStatement: " + erro);
+            }
+            
+            try {
+                if(connection != null) {connection.close();}
+                
+            } catch (SQLException erro) {
+                throw new ExceptionDAO("Erro ao fechar a conexão: " + erro);
+            }
+        }   
+        return filmes;  
+    }
+    
 }

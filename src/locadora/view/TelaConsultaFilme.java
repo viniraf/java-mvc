@@ -4,7 +4,14 @@
  */
 package locadora.view;
 
+
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import locadora.controller.FilmeController;
+import locadora.dao.ExceptionDAO;
+import locadora.model.Filme;
+
 
 /**
  *
@@ -157,7 +164,27 @@ public class TelaConsultaFilme extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void consultar_filme(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultar_filme
-        JOptionPane.showMessageDialog(null, "Consulta de titulos de filme.");
+        String nome = jTextFieldTituloFilme.getText();
+        DefaultTableModel tableModel = (DefaultTableModel) jTableConsultaFilme.getModel();
+        tableModel.setRowCount(0);
+        FilmeController filmeController = new FilmeController();
+        
+        try {
+            ArrayList<Filme> filmes =  filmeController.listarFilmes(nome);
+            filmes.forEach((Filme filme) -> {
+                tableModel.addRow(new Object[] {filme.getCodFilme(),
+                                                filme.getTitulo(),
+                                                filme.getGenero(),
+                                                filme.getSinopse(),
+                                                filme.getDuracao()});                                       
+            });
+            
+            jTableConsultaFilme.setModel(tableModel);
+                  
+        } catch (ExceptionDAO erro){
+          JOptionPane.showMessageDialog(null, "Erro: " + erro);
+        }
+        
     }//GEN-LAST:event_consultar_filme
 
     private void fecharJanelaConsulta(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_fecharJanelaConsulta

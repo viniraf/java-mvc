@@ -100,5 +100,8 @@ public class Filme {
         new FilmeDAO().cadastrarFilme(filme);
     }
     
+    public ArrayList<Filme> listarFilmes (String nome) throws ExceptionDAO {
+        return new FilmeDAO().listarFilmes(nome);
+    }
     
 }

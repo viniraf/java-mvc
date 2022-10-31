@@ -4,6 +4,7 @@
  */
 package locadora.controller;
 
+import java.util.ArrayList;
 import locadora.dao.ExceptionDAO;
 import locadora.model.Filme;
 
@@ -22,5 +23,9 @@ public class FilmeController {
         }
         
         return false;
+    }
+    
+    public ArrayList<Filme> listarFilmes(String nome) throws ExceptionDAO {
+        return new Filme().listarFilmes(nome);
     }
 }
