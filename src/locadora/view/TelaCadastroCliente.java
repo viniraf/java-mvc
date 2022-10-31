@@ -4,6 +4,8 @@
  */
 package locadora.view;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import locadora.controller.ClienteController;
 
@@ -14,12 +16,23 @@ import locadora.controller.ClienteController;
 public class TelaCadastroCliente extends javax.swing.JFrame {
 
      private TelaPrincipal telaPrincipal;
+     private Integer codCliente = 0;
     
     /**
      * Creates new form TelaCadastroCliente
      */
     public TelaCadastroCliente() {
         initComponents();
+    }
+    
+    public void buscarCliente(Integer codCliente, String nome, String cpf, String email, String endereco, Date dtNascimento){
+         this.codCliente = codCliente;
+         this.jTextFieldNome.setText(nome);
+         this.jFormattedTextFieldCPF.setText(cpf);
+         this.jTextFieldEmail.setText(email);
+         this.jTextFieldEndereco.setText(endereco);
+         SimpleDateFormat mask = new SimpleDateFormat("dd/MM/yyyy");
+         this.jFormattedTextFieldDtNascimento.setText(mask.format(dtNascimento));
     }
 
     public TelaCadastroCliente(TelaPrincipal telaPrincipal){

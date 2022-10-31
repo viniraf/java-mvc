@@ -5,6 +5,7 @@
 package locadora.view;
 
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import locadora.controller.ClienteController;
@@ -94,6 +95,11 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTableConsultaCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableConsultaClienteMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jTableConsultaCliente);
@@ -192,6 +198,21 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
         this.dispose();
         this.telaCadastroCliente.setVisible(true);
     }//GEN-LAST:event_fecharJanela
+
+    private void jTableConsultaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableConsultaClienteMouseClicked
+       if (evt.getClickCount() == 2) {
+           Integer codCliente = (Integer) jTableConsultaCliente.getModel().getValueAt(jTableConsultaCliente.getSelectedRow(), 0);
+           String nome = (String) jTableConsultaCliente.getModel().getValueAt(jTableConsultaCliente.getSelectedRow(), 1);
+           String cpf = (String) jTableConsultaCliente.getModel().getValueAt(jTableConsultaCliente.getSelectedRow(), 2);
+           String email = (String) jTableConsultaCliente.getModel().getValueAt(jTableConsultaCliente.getSelectedRow(), 3);
+           String endereco = (String) jTableConsultaCliente.getModel().getValueAt(jTableConsultaCliente.getSelectedRow(), 4);
+           Date dtNascimento = (Date) jTableConsultaCliente.getModel().getValueAt(jTableConsultaCliente.getSelectedRow(), 5);
+           
+           this.telaCadastroCliente.buscarCliente(codCliente, nome, cpf, email, endereco, dtNascimento);
+           this.telaCadastroCliente.setVisible(true);
+           this.dispose();
+       }
+    }//GEN-LAST:event_jTableConsultaClienteMouseClicked
 
     
     public TelaConsultaCliente(TelaCadastroCliente telaCadastroCliente){
