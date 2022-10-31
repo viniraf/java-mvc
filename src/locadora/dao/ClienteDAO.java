@@ -8,7 +8,11 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import locadora.model.Cliente;
+import java.sql.ResultSet;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
@@ -33,7 +37,7 @@ public class ClienteDAO {
             pStatement.execute();
             
         } catch(SQLException erro){
-            throw new ExceptionDAO ("Erro ao cadastrar Ator: " + erro);
+            throw new ExceptionDAO ("Erro ao cadastrar cliente: " + erro);
                             
         } finally {
             try {
@@ -52,5 +56,57 @@ public class ClienteDAO {
                 throw new ExceptionDAO("Erro ao fechar a conexao: " + erro);
             }
         }
-    }  
+    }
+    
+    public ArrayList<Cliente> listarClientes(String nome)throws ExceptionDAO {
+        String sql = "SELECT * FROM cliente WHERE nome LIKE '%" + nome + "%' ORDER BY nome";
+        Connection connection = null;
+        PreparedStatement pStatement = null;
+        ArrayList<Cliente> clientes = null;
+        
+        try {
+           connection = new ConnectionMVC().getConnection(); 
+           pStatement = connection.prepareStatement(sql);
+           ResultSet rs = pStatement.executeQuery(sql);
+           
+           if (rs!= null){
+                clientes = new ArrayList<Cliente>();
+                while(rs.next()){
+                    Cliente cliente = new Cliente();
+                    cliente.setCodCliente(rs.getInt("codCliente"));
+                    cliente.setNome(rs.getString("nome"));
+                    cliente.setCpf(rs.getString("cpf"));
+                    cliente.setEmail(rs.getString("email"));
+                    cliente.setEndereco(rs.getString("endereco"));
+                    cliente.setDtNascimento(rs.getDate("dtNascimento"));
+                    clientes.add(cliente);
+
+                }
+            }
+           
+           
+        } catch (SQLException erro){
+            throw new ExceptionDAO ("Erro ao consultar clientes: " + erro);
+            
+        } finally {
+            try {
+                if (pStatement != null) {
+                    pStatement.close();
+                } 
+            } catch (SQLException erro) {
+                throw new ExceptionDAO("Erro ao fechar o Statement: " + erro);
+            }
+            
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException erro) {
+                throw new ExceptionDAO("Erro ao fechar a conexao: " + erro);
+            }
+        }
+        
+        return clientes;
+      
+    }
 }

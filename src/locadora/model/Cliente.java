@@ -101,4 +101,7 @@ public class Cliente {
         new ClienteDAO().cadastrarCliente(cliente);
     }
     
+    public ArrayList<Cliente> listarClientes(String nome) throws ExceptionDAO {
+        return new ClienteDAO().listarClientes(nome);
+    }
 }

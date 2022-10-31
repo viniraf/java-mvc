@@ -6,6 +6,7 @@ package locadora.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import locadora.dao.ExceptionDAO;
 import locadora.model.Cliente;
@@ -29,6 +30,10 @@ public class ClienteController {
             return true;
         }
         return false;
+    }
+    
+    public ArrayList<Cliente> listarClientes(String nome) throws ExceptionDAO {
+        return new Cliente().listarClientes(nome);
     }
 
     // Metodo validação campo cpf
