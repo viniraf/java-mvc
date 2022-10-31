@@ -98,4 +98,41 @@ public class AtorDAO {
         
         return atores;
     }
+    
+    
+    public void alterarAtor (Ator ator) throws ExceptionDAO {
+        
+        String sql = "UPDATE ator SET nome = ?, nacionalidade = ? WHERE codAtor = ? ";
+        PreparedStatement pStatement = null;
+        Connection connection = null;
+        
+        try {
+            connection = new ConnectionMVC().getConnection();
+            pStatement = connection.prepareStatement(sql);
+            pStatement.setString(1, ator.getNome());
+            pStatement.setString(2, ator.getNacionalidade());
+            pStatement.setInt(3, ator.getCodAtor());
+            pStatement.execute();
+            
+        } catch(SQLException erro){
+            throw new ExceptionDAO ("Erro ao atualizar Ator: " + erro);
+            
+        } finally {
+            try {
+                if (pStatement != null) {
+                    pStatement.close();
+                } 
+            } catch (SQLException erro) {
+                throw new ExceptionDAO("Erro ao fechar o Statement: " + erro);
+            }
+            
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException erro) {
+                throw new ExceptionDAO("Erro ao fechar a conexao: " + erro);
+            }
+        }
+    }
 }

@@ -29,4 +29,15 @@ public class AtorController {
     public ArrayList<Ator> listarAtores (String nome) throws ExceptionDAO {
         return new Ator().listarAtores(nome);
     }
+    
+     public boolean alterarAtor(int codAtor, String nome, String nacionalidade) throws ExceptionDAO{
+        
+        if (nome != null && nome.length() > 0 && nacionalidade != null && nacionalidade.length() > 0){
+            Ator ator = new Ator(nome, nacionalidade);
+            ator.setCodAtor(codAtor);
+            ator.alterarAtor(ator);
+            return true;
+        }
+        return false;
+    }
 }
