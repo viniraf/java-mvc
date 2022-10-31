@@ -35,6 +35,21 @@ public class ClienteController {
     public ArrayList<Cliente> listarClientes(String nome) throws ExceptionDAO {
         return new Cliente().listarClientes(nome);
     }
+    
+    public boolean alterarCliente(int codCliente, String nome, String cpf, String email, String endereco, String dtNascimento) throws ParseException, ExceptionDAO{
+        
+        if (nome != null && nome.length() > 0 && validarCPF(cpf) && email != null && email.length() > 0 && endereco != null 
+                && endereco.length() > 0 && validarData(dtNascimento)){
+            
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+            Date data = formato.parse(dtNascimento);
+            Cliente cliente = new Cliente(nome, cpf, email, endereco, data);
+            cliente.setCodCliente(codCliente);
+            cliente.alterarCliente(cliente);
+            return true;
+        }
+        return false;
+    }
 
     // Metodo validação campo cpf
     public boolean validarCPF(String cpf){

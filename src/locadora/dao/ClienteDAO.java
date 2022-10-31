@@ -109,4 +109,44 @@ public class ClienteDAO {
         return clientes;
       
     }
+    
+    
+    public void alterarCliente (Cliente cliente) throws ExceptionDAO {
+    
+        String sql = "UPDATE cliente SET nome = ?, CPF = ?, email = ?, endereco = ?, dtnascimento = ? WHERE codCliente = ?";
+        PreparedStatement pStatement = null;
+        Connection connection = null;
+        
+         try {
+            connection = new ConnectionMVC().getConnection();
+            pStatement = connection.prepareStatement(sql);
+            pStatement.setString(1, cliente.getNome());
+            pStatement.setString(2, cliente.getCpf());
+            pStatement.setString(3, cliente.getEmail());
+            pStatement.setString(4, cliente.getEndereco());
+            pStatement.setDate(5, new Date(cliente.getDtNascimento().getTime()));
+            pStatement.setInt(6, cliente.getCodCliente());
+            pStatement.execute();
+            
+        } catch(SQLException erro){
+            throw new ExceptionDAO ("Erro ao alterar cliente: " + erro);
+                            
+        } finally {
+            try {
+                if (pStatement != null) {
+                    pStatement.close();
+                } 
+            } catch (SQLException erro) {
+                throw new ExceptionDAO("Erro ao fechar o Statement: " + erro);
+            }
+            
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException erro) {
+                throw new ExceptionDAO("Erro ao fechar a conexao: " + erro);
+            }
+        }
+    }
 }

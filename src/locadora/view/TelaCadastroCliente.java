@@ -239,11 +239,20 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
        try {
            
            ClienteController clienteController = new ClienteController();
-           sucesso = clienteController.cadastrarCliente(jTextFieldNome.getText(), 
+           
+           if(this.codCliente == 0){
+               sucesso = clienteController.cadastrarCliente(jTextFieldNome.getText(), 
                    jFormattedTextFieldCPF.getText(), 
                    jTextFieldEmail.getText(), 
                    jTextFieldEndereco.getText(), 
                    jFormattedTextFieldDtNascimento.getText());
+           } else {
+               sucesso = clienteController.alterarCliente(this.codCliente, jTextFieldNome.getText(), 
+                   jFormattedTextFieldCPF.getText(), 
+                   jTextFieldEmail.getText(), 
+                   jTextFieldEndereco.getText(), 
+                   jFormattedTextFieldDtNascimento.getText());
+           }
            
            if(sucesso){
                JOptionPane.showMessageDialog(null, "O cadastro foi realizado com sucesso!");
