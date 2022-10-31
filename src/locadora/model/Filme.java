@@ -104,4 +104,8 @@ public class Filme {
         return new FilmeDAO().listarFilmes(nome);
     }
     
+    public void alterarFilme(Filme filme) throws ExceptionDAO {
+        new FilmeDAO().alterarFilme(filme);
+    }
+    
 }

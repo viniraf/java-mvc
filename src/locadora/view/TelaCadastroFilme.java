@@ -233,7 +233,13 @@ public class TelaCadastroFilme extends javax.swing.JFrame {
         
         try {
             FilmeController filmeController = new FilmeController();
-            filmeController.cadastrarFilme(jTextFieldTitulo.getText(), genero, jTextAreaSinopse.getText(), duracao);
+            
+            if(this.codFilme == 0) {
+                sucesso = filmeController.cadastrarFilme(jTextFieldTitulo.getText(), genero, jTextAreaSinopse.getText(), duracao);
+            } else {
+                sucesso = filmeController.alterarFilme(this.codFilme, jTextFieldTitulo.getText(), genero, jTextAreaSinopse.getText(), duracao);
+            }
+            
             if (sucesso = true){
                 JOptionPane.showMessageDialog(null, "O cadastro foi realizado com sucesso");
             } else {

@@ -28,4 +28,15 @@ public class FilmeController {
     public ArrayList<Filme> listarFilmes(String nome) throws ExceptionDAO {
         return new Filme().listarFilmes(nome);
     }
+    
+      public boolean alterarFilme(int codFilme, String titulo, String genero, String sinopse, Integer duracao) throws ExceptionDAO{
+        if (titulo != null && titulo.length() > 0 && genero != null && genero.length() > 0 && sinopse != null && sinopse.length() > 0 && duracao != null && duracao > 0) {
+            Filme filme = new Filme(titulo, genero, sinopse, duracao);
+            filme.setCodFilme(codFilme);
+            filme.alterarFilme(filme);
+            return true;
+        }
+        
+        return false;
+    }
 }

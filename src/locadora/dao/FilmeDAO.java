@@ -100,4 +100,41 @@ public class FilmeDAO {
         return filmes;  
     }
     
+    public void alterarFilme(Filme filme) throws ExceptionDAO {
+        String sql = "UPDATE filme set titulo = ?, genero = ?, sinopse = ?, duracao = ? WHERE codFilme = ?";
+        Connection connection = null;
+        PreparedStatement pStatement = null;
+        
+        try{
+            connection = new ConnectionMVC().getConnection();
+            pStatement = connection.prepareStatement(sql);
+            pStatement.setString(1, filme.getTitulo());
+            pStatement.setString(2, filme.getGenero());
+            pStatement.setString(3, filme.getSinopse());
+            pStatement.setInt(4, filme.getDuracao());
+            pStatement.setInt(5, filme.getCodFilme());
+            pStatement.execute();
+            
+        } catch (SQLException erro){
+            throw new ExceptionDAO("Erro ao alterar o filme: " + erro);
+     
+        } finally {
+            
+            try {
+                if(pStatement!=null) {pStatement.close();}
+                
+            } catch (SQLException erro) {
+                throw new ExceptionDAO("Erro ao fechar o pStatement: " + erro);
+            }
+            
+            try {
+                if(connection != null) {connection.close();}
+                
+            } catch (SQLException erro) {
+                throw new ExceptionDAO("Erro ao fechar a conexão: " + erro);
+            }
+            
+        }
+    }
+    
 }
