@@ -4,6 +4,7 @@
  */
 package locadora.controller;
 
+import locadora.dao.ExceptionDAO;
 import locadora.model.Item;
 
 /**
@@ -12,7 +13,7 @@ import locadora.model.Item;
  */
 public class ItemController {
     
-    public boolean cadastrarItem(Integer codFilme, String tipo, double preco) {
+    public boolean cadastrarItem(Integer codFilme, String tipo, double preco) throws ExceptionDAO {
         
         if(codFilme > 0 && tipo != null && preco > 0) {
             Item item = new Item (codFilme, tipo, preco);
@@ -22,5 +23,5 @@ public class ItemController {
             return false;
         }
     }
-    
+  
 }

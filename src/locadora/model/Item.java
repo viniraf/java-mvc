@@ -5,6 +5,8 @@
 package locadora.model;
 
 import java.util.Date;
+import locadora.dao.ExceptionDAO;
+import locadora.dao.ItemDAO;
 
 /**
  *
@@ -89,7 +91,7 @@ public class Item {
         this.cliente = cliente;
     }
     
-    public void cadastrarItem(Item item) {
-        
+    public void cadastrarItem(Item item) throws ExceptionDAO {
+        new ItemDAO().cadastrarItem(item);
     }
 }
