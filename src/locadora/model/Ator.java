@@ -79,4 +79,8 @@ public class Ator {
     public void alterarAtor(Ator ator) throws ExceptionDAO {
         new AtorDAO().alterarAtor(ator);
     }
+    
+     public void apagarAtor(Ator ator) throws ExceptionDAO {
+        new AtorDAO().apagarAtor(ator);
+    }
 }

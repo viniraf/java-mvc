@@ -4,8 +4,11 @@
  */
 package locadora.view;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import locadora.controller.AtorController;
+import locadora.dao.ExceptionDAO;
 
 /**
  *
@@ -59,10 +62,16 @@ public class TelaCadastroAtor extends javax.swing.JFrame {
         jButtonLimpar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
         jButtonConsultar = new javax.swing.JButton();
+        jButtonApagar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Video Locadora");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                fecharTelaCadastroAtor(evt);
+            }
+        });
 
         jLabelTitulo.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelTitulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icon.png"))); // NOI18N
@@ -97,15 +106,33 @@ public class TelaCadastroAtor extends javax.swing.JFrame {
 
         jButtonLimpar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jButtonLimpar.setText("Limpar");
+        jButtonLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLimparActionPerformed(evt);
+            }
+        });
 
         jButtonCancelar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
 
         jButtonConsultar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jButtonConsultar.setText("Consultar");
         jButtonConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 abrir_telaConsultaAtor(evt);
+            }
+        });
+
+        jButtonApagar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jButtonApagar.setText("Apagar");
+        jButtonApagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonApagarActionPerformed(evt);
             }
         });
 
@@ -132,7 +159,9 @@ public class TelaCadastroAtor extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButtonCancelar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButtonConsultar))
+                                .addComponent(jButtonConsultar)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonApagar))
                             .addGroup(jPanelCadastroAtorLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jComboBoxNacionalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -154,7 +183,8 @@ public class TelaCadastroAtor extends javax.swing.JFrame {
                     .addComponent(jButtonSalvar)
                     .addComponent(jButtonLimpar)
                     .addComponent(jButtonCancelar)
-                    .addComponent(jButtonConsultar))
+                    .addComponent(jButtonConsultar)
+                    .addComponent(jButtonApagar))
                 .addContainerGap(78, Short.MAX_VALUE))
         );
 
@@ -186,6 +216,11 @@ public class TelaCadastroAtor extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void limparTela() {
+        jTextFieldNome.setText("");
+        jComboBoxNacionalidade.setSelectedIndex(0);
+    }
+    
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         
         // Pegando o valor digitado na tela e salvando numa variável
@@ -227,6 +262,36 @@ public class TelaCadastroAtor extends javax.swing.JFrame {
         telaConsultaAtor.setVisible(true);
     }//GEN-LAST:event_abrir_telaConsultaAtor
 
+    private void jButtonApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonApagarActionPerformed
+        boolean sucesso;
+        AtorController atorController = new AtorController();
+        
+        try {
+           sucesso =  atorController.apagarAtor(this.codAtor);
+           if(sucesso) {
+               JOptionPane.showMessageDialog(null, "O ator foi apagado com sucesso");
+               this.limparTela();
+           } else {
+               JOptionPane.showMessageDialog(null, "Não foi possível realizar a ação. Por favor, selecione um Ator para ser apagado");
+           }
+           
+        } catch (ExceptionDAO ex) {
+            Logger.getLogger(TelaCadastroAtor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonApagarActionPerformed
+
+    private void jButtonLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparActionPerformed
+        this.limparTela();
+    }//GEN-LAST:event_jButtonLimparActionPerformed
+
+    private void fecharTelaCadastroAtor(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_fecharTelaCadastroAtor
+        telaPrincipal.setVisible(true);
+    }//GEN-LAST:event_fecharTelaCadastroAtor
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        telaPrincipal.setVisible(true);
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -263,6 +328,7 @@ public class TelaCadastroAtor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonApagar;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonConsultar;
     private javax.swing.JButton jButtonLimpar;

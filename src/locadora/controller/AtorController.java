@@ -40,4 +40,15 @@ public class AtorController {
         }
         return false;
     }
+     
+     public boolean apagarAtor(int codAtor) throws ExceptionDAO {
+         if (codAtor == 0)
+             return false;
+         else {
+             Ator ator = new Ator();
+             ator.setCodAtor(codAtor);
+             ator.apagarAtor(ator);
+             return true;
+         }
+     }
 }
