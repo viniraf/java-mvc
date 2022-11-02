@@ -5,6 +5,8 @@
 package locadora.view;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import locadora.controller.ItemController;
 
 /**
  *
@@ -32,6 +34,13 @@ public class TelaCadastroItem extends javax.swing.JFrame {
     public void buscarFilme(Integer codFilme, String titulo){
         this.codFilme = codFilme;
         this.jTextFieldTituloFilme.setText(titulo);
+    }
+    
+    public void limparTela() {
+       jTextFieldTituloFilme.setText("");
+       jComboBoxTipo.setSelectedIndex(0);
+       jTextFieldPreco.setText("");
+       this.codFilme = 0;
     }
     
 
@@ -100,9 +109,19 @@ public class TelaCadastroItem extends javax.swing.JFrame {
 
         jButtonSalvar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jButtonSalvar.setText("Salvar");
+        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salvarItem(evt);
+            }
+        });
 
         jButtonLimpar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jButtonLimpar.setText("Limpar");
+        jButtonLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                limparTelaCadastroItem(evt);
+            }
+        });
 
         jButtonCancelar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jButtonCancelar.setText("Cancelar");
@@ -200,6 +219,39 @@ public class TelaCadastroItem extends javax.swing.JFrame {
         telaConsultaFilme.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_abrir_consultaFilme
+
+    private void salvarItem(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarItem
+        
+        // Declaracao de variaveis pra diminuir tamanho da chamada do metoedo cadastrarItem
+        String tipo = jComboBoxTipo.getSelectedItem().toString();
+        double preco;
+        
+        if (!jTextFieldPreco.getText().isEmpty()) {
+            preco = Double.parseDouble(jTextFieldPreco.getText());
+        } else {
+            preco = 0;
+        }
+        
+        boolean sucesso = false;
+        try {
+            ItemController itemController = new ItemController();
+            sucesso = itemController.cadastrarItem(this.codFilme, tipo, preco );
+            
+            if (sucesso) {
+                JOptionPane.showMessageDialog(null, "O item foi cadastrado com sucesso");
+                this.limparTela();
+            } else {
+                JOptionPane.showMessageDialog(null, "O item não foi cadastrado com sucesso. Tente novamente");
+            }
+            
+        } catch (Exception erro) {
+             JOptionPane.showMessageDialog(null, "Erro ao cadastrar item: " + erro);
+        }
+    }//GEN-LAST:event_salvarItem
+
+    private void limparTelaCadastroItem(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparTelaCadastroItem
+        this.limparTela();
+    }//GEN-LAST:event_limparTelaCadastroItem
 
     /**
      * @param args the command line arguments
