@@ -108,4 +108,8 @@ public class Cliente {
      public void alterarCliente(Cliente cliente) throws ExceptionDAO{
         new ClienteDAO().alterarCliente(cliente);
      }
+     
+     public void apagarCliente(Cliente cliente) throws ExceptionDAO{
+        new ClienteDAO().apagarCliente(cliente);
+     }
 }

@@ -50,6 +50,17 @@ public class ClienteController {
         }
         return false;
     }
+    
+    public boolean apagarCliente(int codCliente) throws ExceptionDAO {
+        if (codCliente == 0) {
+            return false;
+        } else {
+            Cliente cliente = new Cliente();
+            cliente.setCodCliente(codCliente);
+            cliente.apagarCliente(cliente);
+            return true;
+        }
+    }
 
     // Metodo validação campo cpf
     public boolean validarCPF(String cpf){

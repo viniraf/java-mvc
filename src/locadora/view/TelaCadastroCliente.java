@@ -6,8 +6,11 @@ package locadora.view;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import locadora.controller.ClienteController;
+import locadora.dao.ExceptionDAO;
 
 /**
  *
@@ -66,9 +69,15 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         jButtonLimpar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
         jButtonConsultar = new javax.swing.JButton();
+        jButtonApagar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Video Locadora Hora da Pipoca");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                fecharTelaCadastroCliente(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icon.png"))); // NOI18N
@@ -131,9 +140,19 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
 
         jButtonLimpar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jButtonLimpar.setText("Limpar");
+        jButtonLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLimparActionPerformed(evt);
+            }
+        });
 
         jButtonCancelar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
 
         jButtonConsultar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jButtonConsultar.setText("Consultar");
@@ -143,33 +162,46 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
             }
         });
 
+        jButtonApagar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jButtonApagar.setText("Apagar");
+        jButtonApagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonApagarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelCadastroClienteLayout = new javax.swing.GroupLayout(jPanelCadastroCliente);
         jPanelCadastroCliente.setLayout(jPanelCadastroClienteLayout);
         jPanelCadastroClienteLayout.setHorizontalGroup(
             jPanelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCadastroClienteLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
                 .addGroup(jPanelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabelEmail)
-                    .addComponent(jLabelCPF)
-                    .addComponent(jLabelNome)
-                    .addComponent(jLabelDtNascimento))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addGroup(jPanelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextFieldEmail)
-                    .addComponent(jTextFieldEndereco)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCadastroClienteLayout.createSequentialGroup()
+                    .addGroup(jPanelCadastroClienteLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonSalvar)
-                        .addGap(52, 52, 52)
+                        .addGap(18, 18, 18)
                         .addComponent(jButtonLimpar)
-                        .addGap(45, 45, 45)
+                        .addGap(18, 18, 18)
                         .addComponent(jButtonCancelar)
-                        .addGap(37, 37, 37)
-                        .addComponent(jButtonConsultar))
-                    .addComponent(jFormattedTextFieldDtNascimento)
-                    .addComponent(jFormattedTextFieldCPF)
-                    .addComponent(jTextFieldNome))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonConsultar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonApagar))
+                    .addGroup(jPanelCadastroClienteLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(jPanelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabelEmail)
+                            .addComponent(jLabelCPF)
+                            .addComponent(jLabelNome)
+                            .addComponent(jLabelDtNascimento))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                        .addGroup(jPanelCadastroClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextFieldEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
+                            .addComponent(jTextFieldEndereco)
+                            .addComponent(jFormattedTextFieldDtNascimento)
+                            .addComponent(jFormattedTextFieldCPF)
+                            .addComponent(jTextFieldNome))))
                 .addGap(99, 99, 99))
         );
         jPanelCadastroClienteLayout.setVerticalGroup(
@@ -200,7 +232,8 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
                     .addComponent(jButtonSalvar)
                     .addComponent(jButtonLimpar)
                     .addComponent(jButtonCancelar)
-                    .addComponent(jButtonConsultar))
+                    .addComponent(jButtonConsultar)
+                    .addComponent(jButtonApagar))
                 .addGap(29, 29, 29))
         );
 
@@ -232,6 +265,16 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    private void limparTela(){
+       this.codCliente = 0;
+       jTextFieldNome.setText("");
+       jFormattedTextFieldDtNascimento.setText("");
+       jFormattedTextFieldCPF.setText("");
+       jTextFieldEmail.setText("");
+       jTextFieldEndereco.setText("");
+    }
+    
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
       
        boolean sucesso;
@@ -242,27 +285,26 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
            
            if(this.codCliente == 0){
                sucesso = clienteController.cadastrarCliente(jTextFieldNome.getText(), 
-                   jFormattedTextFieldCPF.getText(), 
-                   jTextFieldEmail.getText(), 
-                   jTextFieldEndereco.getText(), 
-                   jFormattedTextFieldDtNascimento.getText());
+                jFormattedTextFieldCPF.getText(), 
+                jTextFieldEmail.getText(), 
+                jTextFieldEndereco.getText(), 
+                jFormattedTextFieldDtNascimento.getText());
            } else {
                sucesso = clienteController.alterarCliente(this.codCliente, jTextFieldNome.getText(), 
-                   jFormattedTextFieldCPF.getText(), 
-                   jTextFieldEmail.getText(), 
-                   jTextFieldEndereco.getText(), 
-                   jFormattedTextFieldDtNascimento.getText());
+                jFormattedTextFieldCPF.getText(), 
+                jTextFieldEmail.getText(), 
+                jTextFieldEndereco.getText(), 
+                jFormattedTextFieldDtNascimento.getText());
            }
            
            if(sucesso){
                JOptionPane.showMessageDialog(null, "O cadastro foi realizado com sucesso!");
+               this.limparTela();
            }
            else {
                JOptionPane.showMessageDialog(null, "Os campos não foram preenchidos corretamente");
            }
-           
-           
-           
+            
        } catch (Exception e){
            
            JOptionPane.showMessageDialog(null, "Erro: " + e);
@@ -277,6 +319,37 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         this.setVisible(false);
         telaConsultaCliente.setVisible(true);
     }//GEN-LAST:event_abrir_telaConsultaCliente
+
+    private void jButtonApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonApagarActionPerformed
+        boolean sucesso;
+        
+        ClienteController clienteController = new ClienteController();
+         try {
+             sucesso = clienteController.apagarCliente(this.codCliente);
+             if (sucesso) {
+                 JOptionPane.showMessageDialog(null, "O cliente foi apagado com sucesso");
+                 this.limparTela();
+             } else {
+                 JOptionPane.showMessageDialog(null, "Não foi possível realizar a ação. Por favor, selecione um Ator para ser apagado");
+             }
+         } catch (ExceptionDAO ex) {
+             Logger.getLogger(TelaCadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }//GEN-LAST:event_jButtonApagarActionPerformed
+
+    private void jButtonLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparActionPerformed
+        this.limparTela();
+    }//GEN-LAST:event_jButtonLimparActionPerformed
+
+    private void fecharTelaCadastroCliente(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_fecharTelaCadastroCliente
+       this.dispose();
+       telaPrincipal.setVisible(true);
+    }//GEN-LAST:event_fecharTelaCadastroCliente
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        this.setVisible(false);
+        telaPrincipal.setVisible(true);
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -314,6 +387,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonApagar;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonConsultar;
     private javax.swing.JButton jButtonLimpar;
