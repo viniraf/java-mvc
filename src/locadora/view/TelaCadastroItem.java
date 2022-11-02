@@ -4,18 +4,36 @@
  */
 package locadora.view;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author vinic
  */
 public class TelaCadastroItem extends javax.swing.JFrame {
 
+    private TelaPrincipal telaPrincipal;
+    private Integer codFilme = 0;
+    
+    
+    
     /**
      * Creates new form TelaCadastroItem
      */
     public TelaCadastroItem() {
         initComponents();
     }
+
+    public TelaCadastroItem(TelaPrincipal telaPrincipal) {
+        initComponents();
+        this.telaPrincipal = telaPrincipal;
+    }
+    
+    public void buscarFilme(Integer codFilme, String titulo){
+        this.codFilme = codFilme;
+        this.jTextFieldTituloFilme.setText(titulo);
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -29,7 +47,7 @@ public class TelaCadastroItem extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanelCadastroItem = new javax.swing.JPanel();
         jLabelTitulo = new javax.swing.JLabel();
-        jTextFieldTituloItem = new javax.swing.JTextField();
+        jTextFieldTituloFilme = new javax.swing.JTextField();
         jButtonTituloIconConsultar = new javax.swing.JButton();
         jLabelTipo = new javax.swing.JLabel();
         jComboBoxTipo = new javax.swing.JComboBox<>();
@@ -54,11 +72,16 @@ public class TelaCadastroItem extends javax.swing.JFrame {
         jLabelTitulo.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTitulo.setText("Título:");
 
-        jTextFieldTituloItem.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        jTextFieldTituloItem.setToolTipText("Consulte o título do filme");
-        jTextFieldTituloItem.setEnabled(false);
+        jTextFieldTituloFilme.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        jTextFieldTituloFilme.setToolTipText("Consulte o título do filme");
+        jTextFieldTituloFilme.setEnabled(false);
 
         jButtonTituloIconConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/lupa.png"))); // NOI18N
+        jButtonTituloIconConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                abrir_consultaFilme(evt);
+            }
+        });
 
         jLabelTipo.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelTipo.setForeground(new java.awt.Color(255, 255, 255));
@@ -100,7 +123,7 @@ public class TelaCadastroItem extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanelCadastroItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelCadastroItemLayout.createSequentialGroup()
-                        .addComponent(jTextFieldTituloItem, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextFieldTituloFilme, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonTituloIconConsultar))
                     .addGroup(jPanelCadastroItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -124,7 +147,7 @@ public class TelaCadastroItem extends javax.swing.JFrame {
                         .addGap(40, 40, 40)
                         .addGroup(jPanelCadastroItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelTitulo)
-                            .addComponent(jTextFieldTituloItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTextFieldTituloFilme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanelCadastroItemLayout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addComponent(jButtonTituloIconConsultar)))
@@ -171,6 +194,12 @@ public class TelaCadastroItem extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void abrir_consultaFilme(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrir_consultaFilme
+        TelaConsultaFilme telaConsultaFilme = new TelaConsultaFilme((JFrame) this);
+        telaConsultaFilme.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_abrir_consultaFilme
 
     /**
      * @param args the command line arguments
@@ -220,6 +249,6 @@ public class TelaCadastroItem extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JPanel jPanelCadastroItem;
     private javax.swing.JTextField jTextFieldPreco;
-    private javax.swing.JTextField jTextFieldTituloItem;
+    private javax.swing.JTextField jTextFieldTituloFilme;
     // End of variables declaration//GEN-END:variables
 }

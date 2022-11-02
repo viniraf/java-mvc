@@ -4,6 +4,7 @@
  */
 package locadora.view;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import locadora.controller.FilmeController;
 
@@ -64,7 +65,7 @@ public class TelaCadastroFilme extends javax.swing.JFrame {
         jButtonSalvar = new javax.swing.JButton();
         jButtonLimpar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jButtonConsultaFilme = new javax.swing.JButton();
         jLabelTextoMinutosDuracao = new javax.swing.JLabel();
         jButtonApagar = new javax.swing.JButton();
 
@@ -126,11 +127,11 @@ public class TelaCadastroFilme extends javax.swing.JFrame {
         jButtonCancelar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jButtonCancelar.setText("Cancelar");
 
-        jButton1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jButton1.setText("Consultar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonConsultaFilme.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jButtonConsultaFilme.setText("Consultar");
+        jButtonConsultaFilme.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                abrir_telaConsultaFilme(evt);
             }
         });
 
@@ -165,7 +166,7 @@ public class TelaCadastroFilme extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButtonCancelar)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)
+                        .addComponent(jButtonConsultaFilme)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonApagar))
                     .addComponent(jTextFieldTitulo)
@@ -206,7 +207,7 @@ public class TelaCadastroFilme extends javax.swing.JFrame {
                     .addComponent(jButtonSalvar)
                     .addComponent(jButtonLimpar)
                     .addComponent(jButtonCancelar)
-                    .addComponent(jButton1)
+                    .addComponent(jButtonConsultaFilme)
                     .addComponent(jButtonApagar))
                 .addContainerGap(92, Short.MAX_VALUE))
         );
@@ -265,11 +266,11 @@ public class TelaCadastroFilme extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        TelaConsultaFilme telaConsultaFilme = new TelaConsultaFilme(this);
+    private void abrir_telaConsultaFilme(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrir_telaConsultaFilme
+        TelaConsultaFilme telaConsultaFilme = new TelaConsultaFilme((JFrame) this);
         telaConsultaFilme.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_abrir_telaConsultaFilme
 
     private void jButtonApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonApagarActionPerformed
         boolean sucesso;
@@ -324,9 +325,9 @@ public class TelaCadastroFilme extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonApagar;
     private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonConsultaFilme;
     private javax.swing.JButton jButtonLimpar;
     private javax.swing.JButton jButtonSalvar;
     private javax.swing.JComboBox<String> jComboBoxGenero;

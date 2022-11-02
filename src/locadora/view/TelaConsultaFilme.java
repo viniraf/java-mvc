@@ -6,6 +6,7 @@ package locadora.view;
 
 
 import java.util.ArrayList;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import locadora.controller.FilmeController;
@@ -20,7 +21,7 @@ import locadora.model.Filme;
 public class TelaConsultaFilme extends javax.swing.JFrame {
 
     
-    private TelaCadastroFilme telaCadastroFilme;
+    private JFrame telaCadastro;
     
     /**
      * Creates new form TelaConsultaFilme
@@ -29,8 +30,8 @@ public class TelaConsultaFilme extends javax.swing.JFrame {
         initComponents();
     }
     
-    public TelaConsultaFilme(TelaCadastroFilme telaCadastroFilme){
-        this.telaCadastroFilme = telaCadastroFilme;
+    public TelaConsultaFilme(JFrame telaCadastro){
+        this.telaCadastro = telaCadastro;
         initComponents();
     }
 
@@ -194,7 +195,7 @@ public class TelaConsultaFilme extends javax.swing.JFrame {
 
     private void fecharJanelaConsulta(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_fecharJanelaConsulta
        this.dispose();
-       this.telaCadastroFilme.setVisible(true);
+       this.telaCadastro.setVisible(true);
     }//GEN-LAST:event_fecharJanelaConsulta
 
     private void jTableConsultaFilmeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableConsultaFilmeMouseClicked
@@ -205,9 +206,18 @@ public class TelaConsultaFilme extends javax.swing.JFrame {
            String sinopse = (String) jTableConsultaFilme.getModel().getValueAt(jTableConsultaFilme.getSelectedRow(), 3);
            Integer duracao = (Integer) jTableConsultaFilme.getModel().getValueAt(jTableConsultaFilme.getSelectedRow(), 4);
            
-           this.telaCadastroFilme.buscarFilme(codFilme, titulo, genero, sinopse, duracao);
-           this.telaCadastroFilme.setVisible(true);
-           this.dispose();
+           String tipoTela = this.telaCadastro.getClass().getSimpleName();
+           
+           if(tipoTela.equals("TelaCadastroFilme")){
+                TelaCadastroFilme telaCadastroFilme = (TelaCadastroFilme) this.telaCadastro;
+                telaCadastroFilme.buscarFilme(codFilme, titulo, genero, sinopse, duracao);
+                telaCadastroFilme.setVisible(true);
+           } else {
+               TelaCadastroItem telaCadastroItem = (TelaCadastroItem) this.telaCadastro;
+               telaCadastroItem.buscarFilme(codFilme, titulo);
+               telaCadastroItem.setVisible(true);
+           }
+           this.dispose();  
        }
     }//GEN-LAST:event_jTableConsultaFilmeMouseClicked
 
