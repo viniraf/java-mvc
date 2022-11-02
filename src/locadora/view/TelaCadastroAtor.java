@@ -289,6 +289,7 @@ public class TelaCadastroAtor extends javax.swing.JFrame {
     }//GEN-LAST:event_fecharTelaCadastroAtor
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        this.setVisible(false);
         telaPrincipal.setVisible(true);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 

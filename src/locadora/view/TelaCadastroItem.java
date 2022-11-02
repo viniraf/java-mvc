@@ -86,8 +86,14 @@ public class TelaCadastroItem extends javax.swing.JFrame {
         jButtonConsultar = new javax.swing.JButton();
         jButtonApagarItem = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Locadora Hora da Pipoca");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                fecharTelaCadastroItem(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icon.png"))); // NOI18N
@@ -144,6 +150,11 @@ public class TelaCadastroItem extends javax.swing.JFrame {
 
         jButtonCancelar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
 
         jButtonConsultar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jButtonConsultar.setText("Consultar");
@@ -319,6 +330,16 @@ public class TelaCadastroItem extends javax.swing.JFrame {
             Logger.getLogger(TelaCadastroItem.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonApagarItemActionPerformed
+
+    private void fecharTelaCadastroItem(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_fecharTelaCadastroItem
+        this.dispose();
+        telaPrincipal.setVisible(true);
+    }//GEN-LAST:event_fecharTelaCadastroItem
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        this.dispose();
+        telaPrincipal.setVisible(true);
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     /**
      * @param args the command line arguments

@@ -130,6 +130,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuSair.setText("Sair");
         jMenuSair.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jMenuSair.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                fecharTelaPrincipal(evt);
+            }
+        });
         jMenuBarTelaPrincipal.add(jMenuSair);
 
         setJMenuBar(jMenuBarTelaPrincipal);
@@ -180,6 +185,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
        this.setVisible(false);
        telaCadastroItem.setVisible(true);
     }//GEN-LAST:event_abrir_telaCadastroItem
+
+    private void fecharTelaPrincipal(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fecharTelaPrincipal
+       System.exit(0);
+    }//GEN-LAST:event_fecharTelaPrincipal
 
     /**
      * @param args the command line arguments

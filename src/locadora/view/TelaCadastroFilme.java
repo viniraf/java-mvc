@@ -69,8 +69,14 @@ public class TelaCadastroFilme extends javax.swing.JFrame {
         jLabelTextoMinutosDuracao = new javax.swing.JLabel();
         jButtonApagar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Locadora Hora da Pipoca");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                fecharTelaCadastroFilme(evt);
+            }
+        });
 
         jLabelTituloCadastro.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabelTituloCadastro.setForeground(new java.awt.Color(255, 255, 255));
@@ -126,6 +132,11 @@ public class TelaCadastroFilme extends javax.swing.JFrame {
 
         jButtonCancelar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
 
         jButtonConsultaFilme.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jButtonConsultaFilme.setText("Consultar");
@@ -288,6 +299,16 @@ public class TelaCadastroFilme extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro: " + erro);
         }
     }//GEN-LAST:event_jButtonApagarActionPerformed
+
+    private void fecharTelaCadastroFilme(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_fecharTelaCadastroFilme
+        this.dispose();
+        telaPrincipal.setVisible(true);
+    }//GEN-LAST:event_fecharTelaCadastroFilme
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        this.dispose();
+        telaPrincipal.setVisible(true);
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     /**
      * @param args the command line arguments
