@@ -4,6 +4,7 @@
  */
 package locadora.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import locadora.dao.ExceptionDAO;
 import locadora.dao.ItemDAO;
@@ -93,5 +94,9 @@ public class Item {
     
     public void cadastrarItem(Item item) throws ExceptionDAO {
         new ItemDAO().cadastrarItem(item);
+    }
+    
+    public ArrayList<Item> listarItens(String titulo) throws ExceptionDAO {
+        return new ItemDAO().listarItens(titulo);
     }
 }

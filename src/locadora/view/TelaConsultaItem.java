@@ -4,7 +4,13 @@
  */
 package locadora.view;
 
+import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import locadora.controller.ItemController;
+import locadora.dao.ExceptionDAO;
+import locadora.model.Item;
 
 /**
  *
@@ -62,6 +68,11 @@ public class TelaConsultaItem extends javax.swing.JFrame {
         jTextFieldTituloFilme.setToolTipText("Informe o título do filme a ser consultado");
 
         jButtonConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/lupa.png"))); // NOI18N
+        jButtonConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consultar_item(evt);
+            }
+        });
 
         jTableConsultaItem.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         jTableConsultaItem.setModel(new javax.swing.table.DefaultTableModel(
@@ -88,6 +99,11 @@ public class TelaConsultaItem extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTableConsultaItem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableConsultaItemMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jTableConsultaItem);
@@ -160,6 +176,47 @@ public class TelaConsultaItem extends javax.swing.JFrame {
         this.dispose();
         this.telaCadastro.setVisible(true);
     }//GEN-LAST:event_fechar_consultaItem
+
+    private void consultar_item(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultar_item
+        String titulo = jTextFieldTituloFilme.getText();
+        
+        DefaultTableModel tableModel = (DefaultTableModel) jTableConsultaItem.getModel();
+        tableModel.setRowCount(0);
+        ItemController itemController = new ItemController();
+        
+        try {
+            ArrayList<Item> itens =  itemController.listarItens(titulo);
+            itens.forEach((Item item) -> {
+                tableModel.addRow(new Object[] {
+                    item.getCodItem(),
+                    item.getFilme().getCodFilme(),
+                    item.getFilme().getTitulo(),
+                    item.getTipo(),
+                    item.getPreco()
+                });                                       
+            });
+            
+            jTableConsultaItem.setModel(tableModel);
+                  
+        } catch (ExceptionDAO erro){
+          JOptionPane.showMessageDialog(null, "Erro: " + erro);
+        }
+    }//GEN-LAST:event_consultar_item
+
+    private void jTableConsultaItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableConsultaItemMouseClicked
+        if(evt.getClickCount() == 2) {
+            Integer codItem = (Integer) jTableConsultaItem.getModel().getValueAt(jTableConsultaItem.getSelectedRow(), 0);
+            Integer codFilme = (Integer) jTableConsultaItem.getModel().getValueAt(jTableConsultaItem.getSelectedRow(), 1);
+            String titulo = (String) jTableConsultaItem.getModel().getValueAt(jTableConsultaItem.getSelectedRow(), 2);
+            String tipo = (String) jTableConsultaItem.getModel().getValueAt(jTableConsultaItem.getSelectedRow(), 3);
+            String preco = String.valueOf(jTableConsultaItem.getModel().getValueAt(jTableConsultaItem.getSelectedRow(), 4));
+            
+            TelaCadastroItem telaCadastroItem = (TelaCadastroItem) this.telaCadastro;
+            telaCadastroItem.buscarItem(codItem, codFilme, titulo, tipo, preco);
+            telaCadastroItem.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_jTableConsultaItemMouseClicked
 
     /**
      * @param args the command line arguments

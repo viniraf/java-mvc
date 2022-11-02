@@ -16,6 +16,7 @@ public class TelaCadastroItem extends javax.swing.JFrame {
 
     private TelaPrincipal telaPrincipal;
     private Integer codFilme = 0;
+    private Integer codItem = 0;
     
     
     
@@ -34,6 +35,19 @@ public class TelaCadastroItem extends javax.swing.JFrame {
     public void buscarFilme(Integer codFilme, String titulo){
         this.codFilme = codFilme;
         this.jTextFieldTituloFilme.setText(titulo);
+    }
+    
+    public void buscarItem(Integer codItem, Integer codFilme, String titulo, String tipo, String preco) {
+        this.codItem = codItem;
+        this.codFilme = codFilme;
+        this.jTextFieldTituloFilme.setText(titulo);
+        for(int contador =0; contador < jComboBoxTipo.getItemCount(); contador++){
+            if(jComboBoxTipo.getItemAt(contador).equals(tipo)){
+                jComboBoxTipo.setSelectedIndex(contador);
+            }
+        }
+        this.jTextFieldPreco.setText(preco);
+        
     }
     
     public void limparTela() {
