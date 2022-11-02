@@ -99,4 +99,9 @@ public class Item {
     public ArrayList<Item> listarItens(String titulo) throws ExceptionDAO {
         return new ItemDAO().listarItens(titulo);
     }
+    
+    public void alterarItem(Item item) throws ExceptionDAO {
+        new ItemDAO().alterarItem(item);
+    }
+    
 }

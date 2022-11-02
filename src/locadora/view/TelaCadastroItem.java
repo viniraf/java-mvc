@@ -54,6 +54,7 @@ public class TelaCadastroItem extends javax.swing.JFrame {
        jTextFieldTituloFilme.setText("");
        jComboBoxTipo.setSelectedIndex(0);
        jTextFieldPreco.setText("");
+       this.codItem = 0;
        this.codFilme = 0;
     }
     
@@ -251,10 +252,19 @@ public class TelaCadastroItem extends javax.swing.JFrame {
             preco = 0;
         }
         
-        boolean sucesso = false;
+        boolean sucesso;
         try {
             ItemController itemController = new ItemController();
-            sucesso = itemController.cadastrarItem(this.codFilme, tipo, preco );
+            
+            if (this.codItem == 0){
+                sucesso = itemController.cadastrarItem(this.codFilme, tipo, preco);
+            }
+                
+            else {
+                sucesso = itemController.alterarItem(this.codItem, this.codFilme,tipo, preco);
+                this.codItem = 0;
+            }
+                
             
             if (sucesso) {
                 JOptionPane.showMessageDialog(null, "O item foi cadastrado com sucesso");

@@ -28,5 +28,17 @@ public class ItemController {
     public ArrayList<Item> listarItens(String titulo) throws ExceptionDAO {
         return new Item().listarItens(titulo);
     }
+    
+    public boolean alterarItem(Integer codItem, Integer codFilme,  String tipo, double preco) throws ExceptionDAO {
+        
+        if(codFilme > 0 && tipo != null && preco > 0) {
+            Item item = new Item (codFilme, tipo, preco);
+            item.setCodItem(codItem);
+            item.alterarItem(item);
+            return true;
+        } else {
+            return false;
+        }
+    }
   
 }

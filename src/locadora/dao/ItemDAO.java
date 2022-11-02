@@ -107,4 +107,45 @@ public class ItemDAO {
         return itens;  
     }
     
+    public void alterarItem (Item item) throws ExceptionDAO {
+        
+        String sql = "UPDATE item SET codFilme = ?, preco = ?, tipo = ? WHERE codItem = ?";
+        PreparedStatement pStatement = null;
+        Connection connection = null;
+        
+        try {
+            connection = new ConnectionMVC().getConnection();
+            pStatement = connection.prepareStatement(sql);
+            pStatement.setInt(1, item.getFilme().getCodFilme());
+            pStatement.setDouble(2, item.getPreco());
+            pStatement.setString(3, item.getTipo());
+            pStatement.setInt(4,item.getCodItem());
+            pStatement.execute();
+            
+        } catch(SQLException erro){
+            throw new ExceptionDAO ("Erro ao alterar Item: " + erro);
+            
+        } finally {
+            try {
+                if (pStatement != null) {
+                    pStatement.close();
+                } 
+            } catch (SQLException erro) {
+                throw new ExceptionDAO("Erro ao fechar o Statement: " + erro);
+            }
+            
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException erro) {
+                throw new ExceptionDAO("Erro ao fechar a conexao: " + erro);
+            }
+        }
+    }
+     
+     
+     
+     
+    
 }
