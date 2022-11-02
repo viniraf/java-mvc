@@ -4,9 +4,12 @@
  */
 package locadora.view;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import locadora.controller.ItemController;
+import locadora.dao.ExceptionDAO;
 
 /**
  *
@@ -81,6 +84,7 @@ public class TelaCadastroItem extends javax.swing.JFrame {
         jButtonLimpar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
         jButtonConsultar = new javax.swing.JButton();
+        jButtonApagarItem = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -149,6 +153,14 @@ public class TelaCadastroItem extends javax.swing.JFrame {
             }
         });
 
+        jButtonApagarItem.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jButtonApagarItem.setText("Apagar");
+        jButtonApagarItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonApagarItemActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelCadastroItemLayout = new javax.swing.GroupLayout(jPanelCadastroItem);
         jPanelCadastroItem.setLayout(jPanelCadastroItemLayout);
         jPanelCadastroItemLayout.setHorizontalGroup(
@@ -161,21 +173,24 @@ public class TelaCadastroItem extends javax.swing.JFrame {
                     .addComponent(jLabelTitulo))
                 .addGap(18, 18, 18)
                 .addGroup(jPanelCadastroItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelCadastroItemLayout.createSequentialGroup()
-                        .addComponent(jTextFieldTituloFilme, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonTituloIconConsultar))
                     .addGroup(jPanelCadastroItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jTextFieldPreco)
                         .addComponent(jComboBoxTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanelCadastroItemLayout.createSequentialGroup()
-                        .addComponent(jButtonSalvar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonLimpar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonCancelar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonConsultar)))
+                    .addGroup(jPanelCadastroItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelCadastroItemLayout.createSequentialGroup()
+                            .addComponent(jButtonSalvar)
+                            .addGap(18, 18, 18)
+                            .addComponent(jButtonLimpar)
+                            .addGap(18, 18, 18)
+                            .addComponent(jButtonCancelar)
+                            .addGap(18, 18, 18)
+                            .addComponent(jButtonConsultar)
+                            .addGap(18, 18, 18)
+                            .addComponent(jButtonApagarItem))
+                        .addGroup(jPanelCadastroItemLayout.createSequentialGroup()
+                            .addComponent(jTextFieldTituloFilme, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jButtonTituloIconConsultar))))
                 .addContainerGap(175, Short.MAX_VALUE))
         );
         jPanelCadastroItemLayout.setVerticalGroup(
@@ -203,7 +218,8 @@ public class TelaCadastroItem extends javax.swing.JFrame {
                     .addComponent(jButtonSalvar)
                     .addComponent(jButtonLimpar)
                     .addComponent(jButtonCancelar)
-                    .addComponent(jButtonConsultar))
+                    .addComponent(jButtonConsultar)
+                    .addComponent(jButtonApagarItem))
                 .addContainerGap(107, Short.MAX_VALUE))
         );
 
@@ -288,6 +304,22 @@ public class TelaCadastroItem extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_abrir_consultaItem
 
+    private void jButtonApagarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonApagarItemActionPerformed
+        ItemController itemController = new ItemController();
+        
+        try {
+            if (itemController.apagarItem(this.codItem)) {
+                JOptionPane.showMessageDialog(null, "O item foi apagado com sucesso");
+                this.limparTela();
+                this.codItem = 0;
+                this.codFilme = 0;
+            }
+            
+        } catch (ExceptionDAO ex) {
+            Logger.getLogger(TelaCadastroItem.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonApagarItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -324,6 +356,7 @@ public class TelaCadastroItem extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonApagarItem;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonConsultar;
     private javax.swing.JButton jButtonLimpar;

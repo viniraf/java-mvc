@@ -56,7 +56,7 @@ public class ItemDAO {
         }
     }
     
-     public ArrayList<Item> listarItens(String titulo) throws ExceptionDAO {
+    public ArrayList<Item> listarItens(String titulo) throws ExceptionDAO {
         
         String sql = "SELECT it.codItem, it.preco, it.tipo, fi.codFilme, fi.titulo "
                 + "FROM item it, filme fi WHERE it.codFilme = fi.codFilme and "
@@ -144,6 +144,38 @@ public class ItemDAO {
         }
     }
      
+    public void apagarItem(Item item) throws ExceptionDAO {
+        
+        String sql = "DELETE FROM item WHERE codItem = ?";
+        PreparedStatement pStatement = null;
+        Connection connection = null;
+        
+        try {
+            connection = new ConnectionMVC().getConnection();
+            pStatement = connection.prepareStatement(sql);
+            pStatement.setInt(1, item.getCodItem());
+            pStatement.execute();
+            
+        } catch (SQLException erro) {
+            throw new ExceptionDAO("Erro ao apagar o item: " + erro);
+            
+        } finally {
+            
+            try {
+                if (pStatement != null) {
+                    pStatement.close();
+                }
+            } catch (SQLException erro) {
+                throw new ExceptionDAO("Erro ao fechar o Statement: " + erro);
+            } try {
+                if (connection != null) {
+                    connection.close();
+                } 
+            } catch (SQLException erro) {
+                throw new ExceptionDAO("Erro ao fechar conexao: " + erro);
+            }
+        }
+    }
      
      
      
