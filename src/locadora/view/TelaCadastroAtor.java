@@ -42,7 +42,6 @@ public class TelaCadastroAtor extends javax.swing.JFrame {
         }
     }
     
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -219,6 +218,7 @@ public class TelaCadastroAtor extends javax.swing.JFrame {
     private void limparTela() {
         jTextFieldNome.setText("");
         jComboBoxNacionalidade.setSelectedIndex(0);
+        codAtor = 0;
     }
     
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
@@ -240,19 +240,20 @@ public class TelaCadastroAtor extends javax.swing.JFrame {
             } else {
                 sucesso = atorController.alterarAtor(this.codAtor, nome, nacionalidade); 
             }      
-            if(sucesso = true){
-                JOptionPane.showMessageDialog(null, "O cadastro foi realizado com sucesso!" );
+            if(sucesso && this.codAtor == 0){
+                JOptionPane.showMessageDialog(null, "O ator foi cadastrado com sucesso!" );
+                this.limparTela();
+            } else if (sucesso && this.codAtor != 0) {
+                JOptionPane.showMessageDialog(null, "O ator foi atualizado com sucesso!" );
+                this.limparTela();
             }
             else {
                 JOptionPane.showMessageDialog(null, "Os campos não foram preenchidos corretamente." );
             }
             
         } catch (Exception e) {
-            
             JOptionPane.showMessageDialog(null, "Erro: " + e );
         }
-        
-        
         
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
@@ -269,10 +270,10 @@ public class TelaCadastroAtor extends javax.swing.JFrame {
         try {
            sucesso =  atorController.apagarAtor(this.codAtor);
            if(sucesso) {
-               JOptionPane.showMessageDialog(null, "O ator foi apagado com sucesso");
+               JOptionPane.showMessageDialog(null, "O ator foi apagado com sucesso!");
                this.limparTela();
            } else {
-               JOptionPane.showMessageDialog(null, "Não foi possível realizar a ação. Por favor, selecione um Ator para ser apagado");
+               JOptionPane.showMessageDialog(null, "Não foi possível realizar a ação. Por favor, selecione um Ator para ser apagado.");
            }
            
         } catch (ExceptionDAO ex) {

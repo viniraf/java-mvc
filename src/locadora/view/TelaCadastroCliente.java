@@ -297,8 +297,11 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
                 jFormattedTextFieldDtNascimento.getText());
            }
            
-           if(sucesso){
-               JOptionPane.showMessageDialog(null, "O cadastro foi realizado com sucesso!");
+           if(sucesso && this.codCliente == 0){
+               JOptionPane.showMessageDialog(null, "O cliente foi cadastrado com sucesso!");
+               this.limparTela();
+           } else if (sucesso && this.codCliente != 0) {
+               JOptionPane.showMessageDialog(null, "O cliente foi atualizado com sucesso!");
                this.limparTela();
            }
            else {

@@ -6,6 +6,7 @@ package locadora.view;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SpinnerNumberModel;
 import locadora.controller.FilmeController;
 
 /**
@@ -28,6 +29,14 @@ public class TelaCadastroFilme extends javax.swing.JFrame {
         this.telaPrincipal = telaPrincipal;
         initComponents();
                 
+    }
+    
+    public void limparTela(){
+        this.codFilme = 0;
+        jTextFieldTitulo.setText("");
+        jComboBoxGenero.setSelectedIndex(0);
+        jTextAreaSinopse.setText("");
+        jSpinnerDuracao.setModel(new SpinnerNumberModel(20, 20, 300, 10));
     }
     
     public void buscarFilme (Integer codFilme, String titulo, String genero, String sinopse, Integer duracao) {
@@ -97,7 +106,7 @@ public class TelaCadastroFilme extends javax.swing.JFrame {
         jLabelGenero.setText("Gênero:");
 
         jComboBoxGenero.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jComboBoxGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione un gênero", "Ação", "Animação", "Aventura", "Cinema de arte", "Chanchada", "Comédia", "Comédia romântica", "Comédia dramática", "Comédia de ação", "Dança", "Documentário", "Docuficção", "Drama", "Espionagem", "Faroeste", "Fantasia científica", "Ficção científica", "Filmes de guerra", "Musical", "Filme policial", "Romance", "Seriado", "Suspense", "Terror" }));
+        jComboBoxGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione um gênero", "Ação", "Animação", "Aventura", "Cinema de arte", "Chanchada", "Comédia", "Comédia romântica", "Comédia dramática", "Comédia de ação", "Dança", "Documentário", "Docuficção", "Drama", "Espionagem", "Faroeste", "Fantasia científica", "Ficção científica", "Filmes de guerra", "Musical", "Filme policial", "Romance", "Seriado", "Suspense", "Terror" }));
         jComboBoxGenero.setToolTipText("Escolha um gênero");
 
         jLabelSinopse.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -129,6 +138,11 @@ public class TelaCadastroFilme extends javax.swing.JFrame {
 
         jButtonLimpar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jButtonLimpar.setText("Limpar");
+        jButtonLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLimparActionPerformed(evt);
+            }
+        });
 
         jButtonCancelar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jButtonCancelar.setText("Cancelar");
@@ -264,17 +278,18 @@ public class TelaCadastroFilme extends javax.swing.JFrame {
                 sucesso = filmeController.alterarFilme(this.codFilme, jTextFieldTitulo.getText(), genero, jTextAreaSinopse.getText(), duracao);
             }
             
-            if (sucesso = true){
-                JOptionPane.showMessageDialog(null, "O cadastro foi realizado com sucesso");
+            if (sucesso && this.codFilme == 0){
+                JOptionPane.showMessageDialog(null, "O filme foi cadastrado com sucesso!");
+                this.limparTela();
+            } else if (sucesso && this.codFilme != 0){
+                JOptionPane.showMessageDialog(null, "O filme foi atualizado com sucesso!");
+                this.limparTela();
             } else {
                 JOptionPane.showMessageDialog(null, "Os campos não foram preenchidos corretamente");
-            }
-            
-            
+            }    
         } catch (Exception e){
             JOptionPane.showMessageDialog(null, "Erro: " + e);
         }
-        
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void abrir_telaConsultaFilme(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrir_telaConsultaFilme
@@ -291,7 +306,7 @@ public class TelaCadastroFilme extends javax.swing.JFrame {
             sucesso = filmeController.apagarFilme(this.codFilme);
             if (sucesso){
                 JOptionPane.showMessageDialog(null, "Filme apagado com sucesso");
-                //this.limparTelaCadastroFilme(evt); - falta implementar o metodo limparTela
+                this.limparTela();
             } else {
                  JOptionPane.showMessageDialog(null, "Erro ao apagar filme, por favor, selecione um filme!");
             }
@@ -309,6 +324,11 @@ public class TelaCadastroFilme extends javax.swing.JFrame {
         this.dispose();
         telaPrincipal.setVisible(true);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void jButtonLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparActionPerformed
+        this.dispose();
+        telaPrincipal.setVisible(true);
+    }//GEN-LAST:event_jButtonLimparActionPerformed
 
     /**
      * @param args the command line arguments

@@ -289,14 +289,18 @@ public class TelaCadastroItem extends javax.swing.JFrame {
                 
             else {
                 sucesso = itemController.alterarItem(this.codItem, this.codFilme,tipo, preco);
-                this.codItem = 0;
-            }
                 
-            
-            if (sucesso) {
+            }
+
+            if (sucesso && this.codItem == 0) {
                 JOptionPane.showMessageDialog(null, "O item foi cadastrado com sucesso");
                 this.limparTela();
-            } else {
+            } else if (sucesso && this.codItem != 0) {
+                JOptionPane.showMessageDialog(null, "O item foi atualizado com sucesso");
+                this.limparTela();
+            }
+            
+            else {
                 JOptionPane.showMessageDialog(null, "O item não foi cadastrado com sucesso. Tente novamente");
             }
             
